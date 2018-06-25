@@ -64,18 +64,18 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     conv_1x1 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1, padding='SAME',
                                 kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
     # Upsampling by 2 kernel_size = 4, strides = 2x2
-    upsampled_1x1 = tf.layers.conv2d_transpose(conv_1x1, num_classes, 4, strides=(2, 2), padding='SAME'
+    upsampled_1x1 = tf.layers.conv2d_transpose(conv_1x1, num_classes, 4, strides=(2, 2), padding='SAME',
                                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
 
     # Skip connections
     # Add layer4 and upsampled_1x1. Both should be 4x4
     input = tf.add(upsampled_1x1, vgg_layer4_out)
     # Upsampling layer4 again 
-    upsampled_layer4 = tf.layers.conv2d_transpose(input, num_classes, 4, strides=(2, 2), padding='SAME'
+    upsampled_layer4 = tf.layers.conv2d_transpose(input, num_classes, 4, strides=(2, 2), padding='SAME',
                                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
     # Add layer3 with upsampled_layer4
     input = tf.add(upsampled_layer4, vgg_layer3_out)
-    output = tf.layers.conv2d_transpose(input, num_classes, 16, strides=(8, 8), padding='SAME'
+    output = tf.layers.conv2d_transpose(input, num_classes, 16, strides=(8, 8), padding='SAME',
                                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
     return output
 tests.test_layers(layers)
