@@ -123,7 +123,7 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
     :param keep_prob: TF Placeholder for dropout keep probability
     :param learning_rate: TF Placeholder for learning rate
     """
-    rate = 0.001
+    rate = 0.0001
     keep = 0.5
 
     sess.run(tf.global_variables_initializer())
@@ -166,8 +166,8 @@ def run():
         #  https://datascience.stackexchange.com/questions/5224/how-to-prepare-augment-images-for-neural-network
 
         # Build NN using load_vgg, layers, and optimize function
-        learning_rate = tf.constant(0.001) 
-        epochs = 10
+        learning_rate = tf.constant(0.0001) 
+        epochs = 7
         batch_size = 1
         #correct_label = tf.placeholder(tf.int32, None)
         label = tf.placeholder(tf.int32, None)
